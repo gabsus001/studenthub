@@ -75,3 +75,19 @@ def subject_detail(request, subject_id):
         'form': form,  # Przekazujemy zmienną 'form' do HTML-a
     }
     return render(request, 'planner/subject_detail.html', context)
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Subject, Exam, Assignment
+# ... reszta Twoich importów ...
+
+# NOWOŚĆ: Usuwanie egzaminu
+def delete_exam(request, exam_id):
+    egzamin = get_object_or_404(Exam, id=exam_id)
+    egzamin.delete()
+    return redirect('dashboard')
+
+# NOWOŚĆ: Usuwanie projektu/zadania
+def delete_assignment(request, assignment_id):
+    zadanie = get_object_or_404(Assignment, id=assignment_id)
+    zadanie.delete()
+    return redirect('dashboard')

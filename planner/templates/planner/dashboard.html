@@ -85,7 +85,7 @@
                                     <th>Przedmiot</th>
                                     <th>Nazwa zaliczenia</th>
                                     <th>Data</th>
-                                </tr>
+                                    <th>Akcja</th> </tr>
                             </thead>
                             <tbody>
                                 {% for egzamin in egzaminy %}
@@ -93,10 +93,15 @@
                                     <td><span class="badge bg-secondary">{{ egzamin.subject.name }}</span></td>
                                     <td>{{ egzamin.title }}</td>
                                     <td><strong class="text-danger">{{ egzamin.exam_date|date:"d.m.Y" }}</strong></td>
+                                    <td>
+                                        <a href="{% url 'delete_exam' egzamin.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Czy na pewno chcesz usunąć ten egzamin?');">
+                                            🗑️
+                                        </a>
+                                    </td>
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="3" class="text-muted text-center py-3">Uff! Brak zaplanowanych egzaminów.</td>
+                                    <td colspan="4" class="text-muted text-center py-3">Uff! Brak zaplanowanych egzaminów.</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -136,7 +141,12 @@
                                         {{ zadanie.title }}
                                     {% endif %}
                                 </div>
-                                <span class="badge bg-warning text-dark">Termin: {{ zadanie.due_date|date:"d.m.Y" }}</span>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-warning text-dark">Termin: {{ zadanie.due_date|date:"d.m.Y" }}</span>
+                                    <a href="{% url 'delete_assignment' zadanie.id %}" class="btn btn-outline-danger btn-sm py-0 px-2" onclick="return confirm('Czy na pewno chcesz usunąć to zadanie?');">
+                                        🗑️
+                                    </a>
+                                </div>
                             </li>
                             {% empty %}
                             <li class="list-group-item text-muted text-center py-3">Brak zadań do zrobienia.</li>
